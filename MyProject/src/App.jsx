@@ -15,8 +15,6 @@ function App() {
 	const [list, setList] = useState([]);
 	const [error, setError] = useState('');
 
-	let isValueValid = true;
-
 	const onInputButtonClick = () => {
 		const promtValue = prompt('Введите значение');
 		if (promtValue.length < 3) {
@@ -41,6 +39,8 @@ function App() {
 			setError('Введите значение');
 		}
 	};
+
+	const isValueValid = value.length > 0;
 
 	return (
 		<>
