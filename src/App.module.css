@@ -1,86 +1,79 @@
 .container {
-	text-align: center;
-	max-width: 950px;
+	max-width: 600px;
+
+	width: 100%;
+	background-color: rgb(199, 199, 199);
+	margin: 40vh auto;
+	border-radius: 20px;
+	padding: 20px;
+}
+.calculator {
+	background-color: rgb(168, 139, 139);
+	display: flex;
 	margin: 0 auto;
-}
-
-.buttons-container {
-	display: flex;
+	max-width: 550px;
+	padding: 15px 0 15px 0;
 	justify-content: center;
-	gap: 10px;
-}
-
-.button {
-	padding: 0.5em 0.75em;
-	background-color: hsl(
-		var(--accent-color-hue),
-		var(--accent-color-saturation),
-		92%
-	);
-	font-size: 18px;
-	border: none;
-	transition: background-color 0.15s ease;
-	cursor: pointer;
-}
-
-.button:hover {
-	background-color: hsl(
-		var(--accent-color-hue),
-		var(--accent-color-saturation),
-		87%
-	);
-}
-
-.button:disabled {
-	background-color: var(--disabled-color);
-}
-
-.steps-content {
-	margin-bottom: 30px;
-	min-height: 170px;
-	border: 2px solid
-		hsl(var(--accent-color-hue), var(--accent-color-saturation), 92%);
-	border-radius: 15px;
-	padding: 15px 20px;
-}
-
-.steps-list {
-	list-style: none;
-	margin: 0;
-	margin-bottom: 30px;
-	padding: 0;
-	display: flex;
-	justify-content: space-between;
-	gap: 15px;
-}
-
-.steps-item {
-	display: flex;
-	flex-direction: column;
 	align-items: center;
-	flex: 1 1 0px;
-	font-size: 0.75rem;
+	border-radius: 20px;
+	flex-direction: column;
 }
-
-.steps-item-button {
+.ButtonСontainer {
+	display: flex;
+	margin-top: 20px;
+}
+.btnNumber {
+	padding-top: 10px;
+	border-radius: 10px;
+	max-width: 200px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+.operatorContainer {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	max-width: 50px;
+}
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin: 4px;
+	font-family: inherit;
+	font-size: 25px;
+	padding: 10px;
+	width: 50px; /* Фиксированная ширина */
+	height: 50px;
 	cursor: pointer;
-	border-radius: 50%;
-	padding: 0.75rem 1rem;
-	background: #cccccc;
+	border-radius: 10px;
 	border: none;
-	margin-bottom: 0.25rem;
+	background-color: rgb(71, 52, 52);
+	color: white;
+	transition: opacity 0.3s ease, color 0.1s ease;
+}
+.button:hover {
+	opacity: 0.7;
+}
+.button:active {
+	color: rgb(156, 92, 18);
 }
 
-.steps-item.active .steps-item-button,
-.steps-item.done .steps-item-button {
-	background: hsl(
-		var(--accent-color-hue),
-		var(--accent-color-saturation),
-		92%
-	);
+.inputText {
+	padding: 10px;
+	font-size: 25px;
+	width: 80%;
+	margin-top: 15px;
+	border: 2px solid rgb(54, 31, 31);
+	border-radius: 15px;
+	background-color: rgb(194, 176, 176);
+	color: rgb(36, 35, 35);
+	font-weight: 800;
+}
+.inputText::placeholder {
+	font-weight: 600;
 }
 
-.steps-item.active,
-.steps-item.active .steps-item-button {
-	font-weight: bold;
+.done {
+	color: green;
 }

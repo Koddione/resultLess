@@ -1,71 +1,87 @@
 import { useState } from 'react';
 import styles from './app.module.css';
-import data from './data.json';
 
 export const App = () => {
-	// Можно задать 2 состояния — steps и activeIndex
-	const isLastClick = activeIndex + 1 < data.length;
-	const isFirstClick = activeIndex === 0;
-	const [activeIndex, setActiveIndex] = useState(0);
+	const NUMS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+	const OPERAOTRS = ['+', '-', '=', 'C'];
+	const [operand1, setOperand1] = useState('');
+	const [operand2, setOperand2] = useState('');
+	const [operator, setOperator] = useState('');
+	const [isResult, setIsResult] = useState(false);
 
-	const onHandleNextClick = () => {
-		if (isLastClick) setActiveIndex(activeIndex + 1);
-	};
-	const onHandlePrevClick = () => {
-		setActiveIndex(activeIndex - 1);
-	};
-	const onHandleAgainClick = () => {
-		setActiveIndex(0);
+	const onClickHandle = (btn) => {
+		if (btn === 'C') {
+			setOperand1('');
+			setOperand2('');
+			setOperator('');
+		} else if (btn === '=') {
+			let result;
+			switch (operator) {
+				case '+':
+					result = parseInt(operand2) + parseInt(operand1);
+					break;
+				case '-':
+					result = parseInt(operand2) - parseInt(operand1);
+					break;
+				default:
+					result = operand1;
+					break;
+			}
+			setIsResult(true);
+			setOperand1(result.toString());
+			setOperand2('');
+			setOperator('');
+		} else if (NUMS.includes(btn)) {
+			if (isResult) {
+				setOperand1(btn);
+				setIsResult(false);
+			} else {
+				setOperand1((prev) => prev + btn);
+			}
+		} else if (OPERAOTRS.includes(btn)) {
+			setOperand2(operand1);
+			setOperand1('');
+			setOperator(btn);
+			setIsResult(false);
+		}
 	};
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.card}>
-				<h1>Инструкция по готовке пельменей</h1>
-				<div className={styles.steps}>
-					<div className={styles['steps-content']}>
-						{data[activeIndex] && (
-							<p>{data[activeIndex].content}</p>
-						)}
-					</div>
-					<ul className={styles['steps-list']}>
-						{data.map((step, index) => (
-							<li
-								key={step.id}
-								className={`${styles['steps-item']} ${
-									index <= activeIndex ? styles.active : ''
-								}`}
+			<div className={styles.calculator}>
+				<input
+					className={
+						!isResult
+							? styles.inputText
+							: `${styles.inputText} ${styles.done}`
+					}
+					type="text"
+					value={operand1}
+					placeholder="Введите значение"
+					readOnly
+				/>
+				<div className={styles.ButtonСontainer}>
+					<div className={styles.btnNumber}>
+						{NUMS.map((btn) => (
+							<button
+								onClick={() => onClickHandle(btn)}
+								className={styles.button}
+								key={btn}
 							>
-								<button
-									onClick={() => setActiveIndex(index)}
-									className={styles['steps-item-button']}
-								>
-									{index + 1}
-								</button>
-								{step.title}
-							</li>
+								{btn}
+							</button>
 						))}
-					</ul>
-					<div className={styles['buttons-container']}>
-						<button
-							className={styles.button}
-							onClick={onHandlePrevClick}
-							disabled={isFirstClick}
-						>
-							Назад
-						</button>
-						<button
-							className={styles.button}
-							onClick={() => {
-								if (!isLastClick) {
-									onHandleAgainClick();
-								} else {
-									onHandleNextClick();
-								}
-							}}
-						>
-							{!isLastClick ? 'Начать сначала' : 'Вперед'}
-						</button>
+					</div>
+					<div className={styles.operatorContainer}>
+						{OPERAOTRS.map((btn) => (
+							<button
+								onClick={() => onClickHandle(btn)}
+								key={btn}
+								className={styles.button}
+							>
+								{btn}
+							</button>
+						))}
 					</div>
 				</div>
 			</div>
